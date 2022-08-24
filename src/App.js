@@ -2,11 +2,11 @@ import React, { useState } from "react";
 
 function App() {
   const [userInput, userInputState] = useState("");
-  const [todoLists, settodoLists] = useState([]);
+  const [shoppingLists, setshoppingLists] = useState([]);
 
   const OnSubmit = (event) => {
     event.preventDefault();
-    userInput !== "" && settodoLists(props => [...props, userInput]);
+    userInput !== "" && setshoppingLists(props => [...props, userInput]);
   };
 
   const MemoizeUserInputValue = React.useCallback((value) => {
@@ -15,16 +15,17 @@ function App() {
 
   const DeleteItemHandler = (e, index) => {
     e.preventDefault();
-    const list = [...todoLists];
+    const list = [...shoppingLists];
     list.splice(index, 1);
-    settodoLists(list);
+    setshoppingLists(list);
   };
 
   return (
     <div className="App">
+      <h1>My shopping List</h1>
       <form style={{ marginBottom: "30px", display: "flex" }}>
         <label htmlFor="list">
-          Add your text here
+          Enter a new item: 
           <input type="text" name="list" value={userInput} onChange={(e) => MemoizeUserInputValue(e.currentTarget.value)} />
         </label>
         <button onClick={OnSubmit}>Add</button>
@@ -32,7 +33,7 @@ function App() {
 
       <div style={{ display: "flex", flexDirection: "column" }}>
         {
-          todoLists.map((item, index) => {
+          shoppingLists.map((item, index) => {
             return (
               <div style={{ maxWidth: "308px", flexGrow: 0, flexShrink: 1, display: "flex", justifyContent: "space-between", marginBottom: "10px" }}>
                 <span>{item}</span>
